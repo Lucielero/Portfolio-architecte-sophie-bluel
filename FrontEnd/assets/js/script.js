@@ -1,6 +1,8 @@
 //Récupération des travaux via l'API
 let datas = []
+let categories = []
 const gallery = document.querySelector('.gallery')
+const filters = document.querySelector('.filters')
 
 fetch('http://localhost:5678/api/works')
     .then(res => res.json())
@@ -11,14 +13,41 @@ fetch('http://localhost:5678/api/works')
 
         //Ajout des travaux récupérés de la galerie 
         data.forEach (work => {
+                categories.push (work.category)
             createWork (work)
-        })
-    })
-
+        }) 
+    }) 
     .catch(error => {
         console.error ('Erreur lors de la récupération des données :', error)
         alert ('Une erreur s\'est produite lors de la récupération des données. Veuillez réessayer.')
     })
+
+fetch('http://localhost:5678/api/categories')
+    .then(res => res.json())
+    .then(data => {
+    categories = data
+    data.unshift ({
+        id:0, 
+        name: "Tous"
+    })
+    filters.innerHTML =""
+    data.forEach (work => {
+        createCategory(work)
+})   
+    }) 
+    .catch(error => {
+        console.error ('Erreur lors de la récupération des données :', error)
+        alert ('Une erreur s\'est produite lors de la récupération des données. Veuillez réessayer.')
+    })
+
+function createCategory(category) {
+    const button = document.createElement('button')
+    button.classList.add("filterbtn")
+    button.innerText = category.name
+    button.setAttribute("data-id", category.id)
+    button.addEventListener("click", () => filterCategories (category.id))
+    filters.appendChild(button)
+}
 
 function createWork(work) {
     const figure = document.createElement('figure')
@@ -35,23 +64,16 @@ function createWork(work) {
 }
 
 //Barre de filtres 
-//Catégories
 function filterCategories(id) {
-    console.log('id ici:', id)
-    console.log('datas dans filterCategories:', datas)
-
-    const filteredElements = datas.filter((x) => x.categoryId == id) 
-    console.log('filteredElements:', filteredElements);
-    
+    let filteredElements = []
+    if ( id > 0){
+        filteredElements = datas.filter((x) => x.categoryId == id) 
+    } else {
+        filteredElements = datas
+    }    
     gallery.innerHTML =""
     filteredElements.forEach(work => {
         createWork(work)
     });
 }
-//Tous
-function resetCategories() {
-    gallery.innerHTML =""
-    datas.forEach(work => {
-        createWork(work)
-    })
-}
+
