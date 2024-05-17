@@ -18,7 +18,7 @@
 			<li>projets</li>
 			<li>contact</li>
 			<li>login</li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			<li><img src="../assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
@@ -26,13 +26,13 @@
 <main>
     <section id="login">
         <h2>Log in</h2>
-		<p>Erreur dans l’identifiant ou le mot de passe</p>
-            <form action="#" method="post">
+		<!--<p class="error-message">Erreur dans l'identifiant ou le mot de passe</p>-->
+            <form action="#" method="post" id="login-form">
                 <label for="email">E-mail</label>
                 <input type="email" name="email" id="email" required>
                 <label for="password">Mot de passe</label>
                 <input type="password" name="password" id="password" required>
-                <input type="submit" value="Se connecter">
+                <input type="submit" value="Se connecter" id="submit-button">
                 <a href="#">Mot de passe oublié</a>
             </form>
     </section>
