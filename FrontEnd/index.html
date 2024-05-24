@@ -9,19 +9,27 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<script src="./assets/js/script.js" defer></script>
-	<script src="./assets/js/login.js" defer></script>
 	<script src="./assets/js/modale.js" defer></script>
+
 </head>
 <body>
+
+<!-- Bandeau mode édition-->
+<div class="mode-edition" id="mode-edition">
+	<i class="fa-regular fa-pen-to-square mode-edition-icon"></i>
+	<p>Mode édition</p>
+</div>
+
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			<li><a href="/FrontEnd/Pages/login.html" id="login-link">login</a></li>
+			<li><img src="./assets/icons/instagram.png" class="logo-instagram" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
@@ -39,7 +47,14 @@
 	</section>
 	<section id="portfolio">
 
-		<h2>Mes Projets</h2>
+		<div class="portfolio-heading">
+			<h2>Mes Projets</h2> 
+		<!--Bouton edit-->
+			<div id="editbtn">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<p id="edit">Modifier</p>
+			</div>
+		</div>
 
 		<!--Partie Catégorie-->
 		<div class="filters"></div>
@@ -70,5 +85,16 @@
 		</ul>
 	</nav>
 </footer>
+
+<!--Modale-->
+<div id="container-modal">
+	<div class="modale-photos">
+		<i class="fa-solid fa-xmark close-btn"></i>
+		<h3>Galerie photo</h3>
+		<div class="edit-modal"></div>
+		<div class="stroke"></div>
+		<button class="add-btn">Ajouter une photo</button>
+	</div>
+</div>
 </body>
 </html>

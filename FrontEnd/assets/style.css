@@ -54,6 +54,7 @@ body {
 	font-size: 14px;
 	background-color: #fffef8;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -84,6 +85,12 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
+h3 {
+	font-family: 'Work Sans';
+	font-size: 26px;
+	color: #000000;
+}
 nav ul {
 	display: flex;
 	align-items: center;
@@ -92,6 +99,14 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+}
+
+nav li a {
+	text-decoration: none;
+}
+
+.logo-instagram {
+	width: 20px;
 }
 
 li:hover {
@@ -120,29 +135,13 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+.portfolio-heading {
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	margin: 140px 0 60px 0;
+	gap: 50px;
 }
-
-/**Barre de filtres**/
-.filters {
-	text-align: center;
-	margin-bottom: 50px;
-	
-}
-.filterbtn {
-	font-family: 'Syne';
-	font-size: 16px;
-	font-weight: 700;
-	color:#1D6154; 
-	background-color: #fffef8;
-	border: 1px solid #1D6154;
-	border-radius: 50px;
-	padding: 8px 20px 8px 20px;
-	margin-left: 10px;
-}
-
 
 .gallery {
 	width: 100%;
@@ -199,7 +198,77 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+/** Bandeau mode édition après connexion **/
+.mode-edition {
+	background-color: black;
+	height: 60px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	display: flex;
+	gap: 10px;
+	display: none;
+	margin-bottom: 400px;
+}
+.mode-edition-icon {
+	color: white;
+}
+.mode-edition p {
+	font-weight: 400;
+	font-size: 16;
+}
+
+/** Bouton modifier  **/
+.editbtn {
+	display: flex;
+	gap: 10px;
+	display: none;
+}
+
+#edit {
+	cursor: pointer;
+}
+
+
+/** Barre de filtres **/
+.filters {
+	text-align: center;
+	margin-bottom: 50px;
+	
+}
+.filterbtn {
+	font-family: 'Syne';
+	font-size: 16px;
+	font-weight: 700;
+	color:#1D6154; 
+	background-color: #fffef8;
+	border: 1px solid #1D6154;
+	border-radius: 50px;
+	padding: 8px 20px 8px 20px;
+	margin-left: 10px;
+}
+
+.filterbtn:hover {
+	background-color: #1D6154;
+	color: #fffef8;
+}
+
+
 /**Login Form**/
+
+/** Message d'erreur **/ 
+#error-message {
+	color: #B1663C;
+	font-size: 16px;
+	font-weight: 600;
+	display:none;
+	margin-top: 35px;
+}
+
 #login {
 	width: 50%;
 	margin: auto;
@@ -230,6 +299,62 @@ input[type="submit"]{
 	margin: auto;
 	color: black;
 }
+
+
+/** Modale **/
+#container-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.281);
+	justify-content: center;
+	align-items: center;
+}
+.modale-photos {
+	background-color: white;
+	width: 30%;
+	height: 70%;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	position: relative;
+}
+.close-btn {
+	position: absolute;
+	top: 40px;
+	right: 40px;
+	font-size: 20px;
+	cursor: pointer;
+}
+.stroke {
+	height: 1px;
+	width: 60%;
+	background-color: #b3b3b3; 
+	position: absolute;
+	bottom: 160px;
+	left: 130px;
+}
+.add-btn {
+	font-family: 'Syne';
+	font-size: 16px;
+	font-weight: 700;
+	color:#fffef8; 
+	background-color: #1D6154;
+	border: 1px solid #1D6154;
+	border-radius: 50px;
+	padding: 8px 20px 8px 20px;
+	margin-left: 10px;
+}
+.add-btn:hover {
+	background-color: white;
+	color: #1d6154;
+}
+
 
 
 

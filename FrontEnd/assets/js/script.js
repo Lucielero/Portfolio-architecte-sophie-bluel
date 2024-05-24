@@ -1,9 +1,11 @@
-//Récupération des travaux via l'API
+//Variables
 let datas = []
 let categories = []
 const gallery = document.querySelector('.gallery')
 const filters = document.querySelector('.filters')
 
+
+//Récupération des travaux via l'API
 fetch('http://localhost:5678/api/works')
     .then(res => res.json())
     .then(data => {
@@ -76,4 +78,46 @@ function filterCategories(id) {
         createWork(work)
     });
 }
+
+//Partie mode édition après connexion 
+
+
+//Vérification du token au chargement de la page 
+window.addEventListener("load", function() {
+    const token = localStorage.getItem("token");
+    console.log("token récupéré",token)
+    if (token) {
+        //Affichage Logout
+        const loginLink = document.getElementById("login-link")
+        loginLink.textContent = "Logout"
+        loginLink.addEventListener("click", function(event) {
+            event.preventDefault() //empêche le navigateur de suivre le lien
+            localStorage.removeItem("token")
+            window.location.href = "../Pages/login.html" 
+        })
+        //Affichage bandeau édition & bouton modifier 
+        const bandeauEdition = document.getElementById("mode-edition");
+        bandeauEdition.style.display = "block"
+        const editButton = document.getElementById ("editbtn")
+        console.log(editButton)
+        editButton.style.display = "block"
+        //Affichage Container Modale
+        const containerModal = document.getElementById("container-modal")
+        console.log(containerModal)
+        editButton.addEventListener("click", function(event) {
+            containerModal.style.display = "block"
+        } )
+        //Fermeture Modale 
+        const closeModalBtn = document.querySelector(".close-btn")
+        console.log(closeModalBtn)
+        closeModalBtn.addEventListener("click", function(event) {
+            containerModal.style.display = "none"
+        })
+        //Désaffichage partie filtres 
+        
+        
+        
+    }
+});
+
 
