@@ -8,7 +8,6 @@ async function getWork() {
     //retourne tableau des works
     return await responseWorks.json()
 }
-
 //Affichage des works 
 async function displayWorks(filterWorks = null) {
     // si la fonction est appelée sans argument, le paramètre aura automatiquement la valeur null
@@ -30,7 +29,6 @@ async function displayWorks(filterWorks = null) {
     })
 }
 displayWorks()
-
 
 //Récupération des catégories 
 async function getCategories() {
@@ -58,7 +56,7 @@ async function displayCategories() {
     })
     filterByCategory()
 }
-//Filtrer avec les boutons
+//Ajout des catégories aux filtres
 async function filterByCategory () {
     //récupération du tableau des works 
     const arrayWorks = await getWork()
@@ -93,33 +91,49 @@ displayCategories()
 window.addEventListener("load", function() {
     const token = localStorage.getItem("token")
     if (token) {
-        //Affichage Logout
-        const loginLink = document.getElementById("login-link")
-        loginLink.textContent = "Logout"
-        loginLink.addEventListener("click", function(event) {
-            event.preventDefault() //empêche le navigateur de suivre le lien
-            localStorage.removeItem("token")
-            location.reload()
-        })
-        //Affichage bandeau édition & bouton modifier 
-        const bandeauEdition = document.getElementById("mode-edition");
-        bandeauEdition.style.display = "flex"
-        const editButton = document.getElementById ("editbtn")
-        editButton.style.display = "flex"
-        //Affichage Container Modale
-        const containerModal = document.getElementById("container-modal")
-        editButton.addEventListener("click", function(event) {
-            containerModal.style.display = "flex"
-         } )
-        //Fermeture Modale 
-        const closeModalBtn = document.querySelector(".close-btn")
-        closeModalBtn.addEventListener("click", function(event) {
-            containerModal.style.display = "none"
-        })
-        //Retirer barre de filtres 
-        filters.style.display = "none"
+        //Affichage des différentes parties quand l'utilisateur est connecté
+        displayAdminElements();
+        addListeners();
     }
 })
 
-//Modale 
+function displayAdminElements() {
+    //Affichage Logout
+    const loginLink = document.getElementById("login-link");
+    loginLink.textContent = "Logout";
+    //Affichage bandeau édition & bouton modifier
+    const bandeauEdition = document.getElementById("mode-edition");
+    bandeauEdition.style.display = "flex";
+    const editButton = document.getElementById("editbtn");
+    editButton.style.display = "flex";
+    //Retirer barre de filtres
+    const filters = document.querySelector(".filters");
+    filters.style.display = "none";
+}
 
+function addListeners() {
+    //Listener Logout
+    const loginLink = document.getElementById("login-link");
+    loginLink.addEventListener("click", function(event) {
+        event.preventDefault(); // empêche le navigateur de suivre le lien
+        localStorage.removeItem("token");
+        location.reload();
+    });
+    //Listener Modale
+    const editButton = document.getElementById("editbtn");
+    const containerModal = document.getElementById("container-modal");
+    const closeModalBtn = document.querySelector(".close-btn");
+    editButton.addEventListener("click", function(event) {
+        containerModal.style.display = "flex";
+    });
+    closeModalBtn.addEventListener("click", function(event) {
+        containerModal.style.display = "none";
+    });
+}
+
+//Modale 
+const worksModalContainer = document.querySelector(".works-modal-container")
+
+function createWorksModal () {
+    
+}
