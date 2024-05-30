@@ -153,11 +153,11 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
+
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -196,10 +196,11 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	border:none;
 }
 
 /** Bandeau mode édition après connexion **/
-.mode-edition {
+#mode-edition {
 	background-color: black;
 	height: 60px;
 	position: fixed;
@@ -209,10 +210,8 @@ input[type="submit"]{
 	justify-content: center;
 	align-items: center;
 	color: white;
-	display: flex;
-	gap: 10px;
 	display: none;
-	margin-bottom: 400px;
+	gap: 10px;
 }
 .mode-edition-icon {
 	color: white;
@@ -223,12 +222,10 @@ input[type="submit"]{
 }
 
 /** Bouton modifier  **/
-.editbtn {
-	display: flex;
+#editbtn {
 	gap: 10px;
 	display: none;
 }
-
 #edit {
 	cursor: pointer;
 }
@@ -240,7 +237,7 @@ input[type="submit"]{
 	margin-bottom: 50px;
 	
 }
-.filterbtn {
+.filters button {
 	font-family: 'Syne';
 	font-size: 16px;
 	font-weight: 700;
@@ -303,7 +300,7 @@ input[type="submit"]{
 
 /** Modale **/
 #container-modal {
-	display: none;
+	/**display: none;*/
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -313,7 +310,7 @@ input[type="submit"]{
 	justify-content: center;
 	align-items: center;
 }
-.modale-photos {
+.gallery-modal, .add-work-modal  {
 	background-color: white;
 	width: 30%;
 	height: 70%;
@@ -324,21 +321,18 @@ input[type="submit"]{
 	align-items: center;
 	position: relative;
 }
-.close-btn {
-	position: absolute;
-	top: 40px;
-	right: 40px;
-	font-size: 20px;
-	cursor: pointer;
+.works-modal {
+	background-color: #b3b3b3;
+	width: 70%;
+	height: 60%;
+
 }
 .stroke {
 	height: 1px;
 	width: 60%;
 	background-color: #b3b3b3; 
-	position: absolute;
-	bottom: 160px;
-	left: 130px;
 }
+
 .add-btn {
 	font-family: 'Syne';
 	font-size: 16px;
@@ -354,8 +348,39 @@ input[type="submit"]{
 	background-color: white;
 	color: #1d6154;
 }
-
-
+.close-btn, .go-back-arrow {
+	position: absolute;
+	top: 40px;
+	font-size: 20px;
+	cursor: pointer;
+}
+.close-btn {
+	right: 40px;
+}
+.go-back-arrow {
+	left: 40px;
+}
+.add-work-block {
+	background-color: #E8F1F6;
+	height: 160px;
+}
+#add-work-btn {
+	background-color: #CBD6DC;
+}
+#add-work-form {
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+}
+#title, #categorie {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#add-work-form label {
+	margin: 20px 0 10px 0;
+}
 
 
 footer nav ul {

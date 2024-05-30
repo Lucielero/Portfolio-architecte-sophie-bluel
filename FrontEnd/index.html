@@ -17,7 +17,7 @@
 <body>
 
 <!-- Bandeau mode édition-->
-<div class="mode-edition" id="mode-edition">
+<div id="mode-edition">
 	<i class="fa-regular fa-pen-to-square mode-edition-icon"></i>
 	<p>Mode édition</p>
 </div>
@@ -60,8 +60,7 @@
 		<div class="filters"></div>
 
 
-		<div class="gallery">
-		</div>
+		<div class="gallery"></div>
 	</section>
 	<section id="contact">
 		<h2>Contact</h2>
@@ -86,15 +85,40 @@
 	</nav>
 </footer>
 
-<!--Modale-->
+<!--Modal
 <div id="container-modal">
-	<div class="modale-photos">
+1st Modal
+	<div class="gallery-modal">
 		<i class="fa-solid fa-xmark close-btn"></i>
 		<h3>Galerie photo</h3>
-		<div class="edit-modal"></div>
+		<div class="works-modal-container"></div>
 		<div class="stroke"></div>
 		<button class="add-btn">Ajouter une photo</button>
 	</div>
+2nd Modal
+	<div class="add-work-modal">
+		<div class="add-work-container">
+			<i class="fa-solid fa-arrow-left go-back-arrow"></i>
+			<i class="fa-solid fa-xmark close-btn"></i>
+			<h3>Ajout photo</h3>
+			<div class="add-work-block">
+				<label for="add-work-btn">+ Ajouter photo<input type="file" id="add-img-btn"></label>
+				<p>jpg, png : 4mo max</p>
+			</div>
+			<form id="add-work-form"> 
+				<label for="title">Titre</label>
+				<input type="text" id="title"/> 
+				<label for="categorie">Catégories</label>
+				<select id="categorie" name="categorie">
+					<option></option>
+				</select>
+				<div class="stroke"></div>
+				<input id="submit-work-form" type="submit" value="Valider"/>
+			</form>
+		</div>
+	</div>-->
 </div>
+
+
 </body>
 </html>

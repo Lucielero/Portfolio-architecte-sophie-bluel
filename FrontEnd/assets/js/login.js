@@ -4,15 +4,15 @@ const passwordInput = document.getElementById("password")
 const loginForm = document.getElementById("login-form")
 const errorMessage = document.getElementById("error-message")
 
-
 //Gestion du formulaire de connexion
+
+//Sélection du formulaire et ajout d'écouteur d'événement pour la soumission
+loginForm.addEventListener("submit", loginformSubmission)
+
 function loginformSubmission(event) {
-    
     event.preventDefault() 
-    //Récupération des éléments notés par l'utilisateur
     const email = emailInput.value.trim() //trim = retirer les éventuels espaces vides 
     const password = passwordInput.value.trim()
-    //Requête à l'API
     fetch ("http://localhost:5678/api/users/login", {
         method:"POST", 
         headers: {
@@ -21,7 +21,10 @@ function loginformSubmission(event) {
         body: JSON.stringify({email,password})
     })
     .then(response => {
-        if (!response.ok) {
+        if (!response.status == 200) {
+            if (response.status == 401) {
+                throw new Error("Erreur dans l'identifiant ou le mot de passe")
+            } 
             throw new Error("Une erreur est survenue lors de la requête")
         }
         return response.json()
@@ -40,12 +43,9 @@ function loginformSubmission(event) {
     .catch(error => {
         console.error(error)
         errorMessage.style.display = "block"
-        errorMessage.innerHTML = "Une erreur est survenue lors de la requête"
+        errorMessage.innerHTML = error
     })
 }
-
-//Sélection du formulaire et ajout d'écouteur d'événement pour la soumission
-loginForm.addEventListener("submit", loginformSubmission)
 
 //Vérification du token au chargement de la page 
 window.addEventListener("load", function() {
