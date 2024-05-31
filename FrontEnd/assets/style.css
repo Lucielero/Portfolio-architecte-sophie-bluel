@@ -305,7 +305,7 @@ input[type="submit"]{
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.281);
+	background-color: rgba(0, 0, 0, 0.39);
 	justify-content: center;
 	align-items: center;
 }
@@ -322,7 +322,11 @@ input[type="submit"]{
 	padding: 50px 100px;
 }
 
-.close-btn, .return-back-arrow {
+.modal-secondaire {
+	display :none;
+}
+
+.close-btn, .return-back-arrow, .close-btn-2nd-modal {
 	font-size: 20px;
 	cursor: pointer;
 	position:absolute;
@@ -331,7 +335,7 @@ input[type="submit"]{
 .return-back-arrow {
 	left: 40px
 }
-.close-btn {
+.close-btn, .close-btn-2nd-modal {
 	right: 40px;
 }
 
@@ -464,7 +468,7 @@ input[type="submit"]{
   box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
   border: none;
 }
-.form-photo #submitValider {
+.form-photo #submit-img-btn {
 	width: 233px;
 	height: 36px;
 	border-radius: 60px;

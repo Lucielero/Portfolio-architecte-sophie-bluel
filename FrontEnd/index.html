@@ -87,7 +87,6 @@
 <!--Modale-->
 <div class="modal-wrapper">
 	<!--1ère modale-->
-	<div class="overlay modal-trigger"></div>
 	<div class="modal-principale">
 		<i class="fa-solid fa-xmark close-btn"></i>
 		<h3>Galerie photo</h3>
@@ -101,7 +100,7 @@
 	<!--2ème modale-->
 	<div class="modal-secondaire">
 		<span><i class="fa-solid fa-arrow-left return-back-arrow"></i></span>
-		<span><i class="fa-solid fa-xmark close-btn"></i></span>
+		<span><i class="fa-solid fa-xmark close-btn-2nd-modal"></i></span>
 		<h3>Ajout photo</h3>
 		<form class="form-photo" id="addWorkForm" action="http:localhost:5678/api/works" method="POST">
 			<div class="case">
@@ -113,25 +112,12 @@
 			</div>
 			<label for="title">Titre</label>
 			<input type="text" id="title" name="title">
-			
-			<select id="categorie" name="categorie"></select>
-
-		</form>
-
-
-
-			
-
-			<label for="categorie">Catégories</label>
-			<select id="categorie" name="categorie">
-				<option></option>
-			</select>
+			<label for="category">Catégories</label>
+			<select id="category" name="category"></select>
+				<!--<option></option>-->
 			<div class="stroke"></div>
-			<input id="submitValider" type="submit" value="Valider"/>
-			<div class="messageForm">
-				<span id="error-messageChamp"></span>
-				<span id="addProject"></span>
-			</div>
+			<input id="submit-img-btn" type="submit" value="Valider"/>
+			<!--<button></button>-->
 		</form>
 	</div>
 </div>

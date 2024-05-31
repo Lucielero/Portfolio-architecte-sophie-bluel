@@ -96,7 +96,6 @@ window.addEventListener("load", function() {
     if (token) {
         //Affichage des différentes parties quand l'utilisateur est connecté
         displayAdminElements();
-       
     }
 })
 function displayAdminElements() {
@@ -118,26 +117,20 @@ function displayAdminElements() {
     filters.style.display = "none";
 }
 
-//Modale 
+// MODALE //
 
-//Gestion des modales 
-const firstModal = document.querySelector(".modal-principale") //1ère modale 
-const secondModal = document.querySelector(".modal-secondaire") //2ème modale 
-const buttonFirstModal = document.querySelector(".modal-princiale-btn") //bouton 1ère modale
-const arrow = document.querySelector(".return-back-arrow") //flèche 2ème modale 
-
-//Affichage et fermeture modal
+//Affichage et fermeture modale
 const editButton = document.getElementById("editbtn"); //bouton modifier (à déclarer en haut à la fin)
 const modalWrapper = document.querySelector(".modal-wrapper") //container parent
 const closeModalBtn = document.querySelector(".close-btn"); //croix de fermeture
 
 function displayModal () {
-    //Affichage modal
-    editButton.addEventListener("click", function(event) {
+    //Affichage modale
+    editButton.addEventListener("click", () => {
         modalWrapper.style.display = "flex";
     });
-    //Fermeture à modifier pour fermer même en cliquant ailleurs sur la page
-    closeModalBtn.addEventListener("click", function(event) {
+    //Croix fermeture modale
+    closeModalBtn.addEventListener("click", () => {
         modalWrapper.style.display = "none";
     });
     //Fermeture hors container 
@@ -148,7 +141,7 @@ function displayModal () {
 })}
 displayModal()
 
-//Affichage des works dans la modal
+//Affichage des works dans la modale
 const worksGalleryModal = document.querySelector(".work-modal")
 
 async function displayWorksModal () {
@@ -173,8 +166,7 @@ async function displayWorksModal () {
 }
 displayWorksModal()
 
-
-//Supression d'images dans la modal    /à tester après 
+//Supression d'images dans la modale    
 function deleteWorks () {
     const trashCans = document.querySelectorAll('.fa-trash-can')
     trashCans.forEach (trash => {
@@ -198,8 +190,102 @@ function deleteWorks () {
             })
         })
     })
-
 }
+deleteWorks()
 
+//Affichage 2ème modale 
+const modalWorksGallery = document.querySelector(".modal-principale") //1ère modale
+const btnAddModal = document.querySelector (".modal-principale-btn") //bouton ajouter photo 1ère modale
+const modalAddImg = document.querySelector (".modal-secondaire") //2ème modale 
+const backArrow = document.querySelector (".return-back-arrow") //flèche 2ème modale 
+const closeScndModal = document.querySelector(".close-btn-2nd-modal"); //croix fermeture 2ème modale 
 
+function displayAddModal () {
+    btnAddModal.addEventListener("click",() => {
+        modalAddImg.style.display = "flex"
+        modalWorksGallery.style.display = "none"
+    })
+    //Flèche retour en arrière
+    backArrow.addEventListener("click", () => {
+        modalAddImg.style.display = "none"
+        modalWorksGallery.style.display = "flex"
+    })
+    //Croix fermeture modale
+    closeScndModal.addEventListener("click", () => {
+        modalWrapper.style.display = "none";
+    })
+}
+displayAddModal()
 
+//Prévisualisation img
+const imgPreview = document.querySelector(".case img") 
+const inputFile = document.querySelector(".case input")
+const labelFile = document.querySelector(".case label")
+const iconFile = document.querySelector(".case .img-icon")
+const pFile = document.querySelector(".case p")
+
+inputFile.addEventListener("change", () => {
+    const file = inputFile.files[0]
+    if (file) {
+        const reader = new FileReader()
+        reader.onload = function (e) {
+            imgPreview.src = e.target.result
+            imgPreview.style.display = "flex"
+            labelFile.style.display = "none"
+            iconFile.style.display = "none"
+            pFile.style.display = "none"
+        }
+        reader.readAsDataURL(file)
+    }
+})
+
+//Céation de catégories dans l'input select 2ème modale
+async function displayCategoriesModal () {
+    const select = document.querySelector(".modal-secondaire select")
+    const formCategories = await getCategories() 
+    formCategories.forEach(category => {
+        const option = document.createElement('option')
+        option.value = category.id
+        option.textContent = category.name
+        select.appendChild(option)
+})
+}
+displayCategoriesModal ()
+
+//Ajout d'img 
+const form = document.querySelector(".modal-secondaire form")
+const title = document.querySelector(".modal-secondaire #title")
+const category = document.querySelector(".modal-secondaire #category")
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form); 
+    fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        body: formData,
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur dans la réponse du serveur ' + response.statusText);
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        console.log(data);
+        console.log("Image ajoutée", data);
+        displayWorksModal();
+        displayWorks();
+    })
+    .catch(error => {
+        console.error('Problème avec le fetch:', error);
+    });
+});
+
+//Vérification des paramètres pour l'ajout d'img
+function verifyForm () {
+    const submitImgBtn = document.getElementById("submit-img-btn")
+}
+verifyForm()
