@@ -1,6 +1,8 @@
 //Variables
 const gallery = document.querySelector('.gallery')
 const filters = document.querySelector('.filters')
+//Variables modales 
+
 
 //Récupération des works 
 async function getWork() {
@@ -8,6 +10,7 @@ async function getWork() {
     //retourne tableau des works
     return await responseWorks.json()
 }
+
 //Affichage des works 
 async function displayWorks(filterWorks = null) {
     // si la fonction est appelée sans argument, le paramètre aura automatiquement la valeur null
@@ -93,47 +96,110 @@ window.addEventListener("load", function() {
     if (token) {
         //Affichage des différentes parties quand l'utilisateur est connecté
         displayAdminElements();
-        addListeners();
+       
     }
 })
-
 function displayAdminElements() {
-    //Affichage Logout
+    //Logout
     const loginLink = document.getElementById("login-link");
     loginLink.textContent = "Logout";
+    loginLink.addEventListener("click", function(event) {
+        event.preventDefault(); // empêche le navigateur de suivre le lien
+        localStorage.removeItem("token");
+        location.reload();
+    });
     //Affichage bandeau édition & bouton modifier
     const bandeauEdition = document.getElementById("mode-edition");
     bandeauEdition.style.display = "flex";
-    const editButton = document.getElementById("editbtn");
+    const editButton = document.getElementById("editbtn"); //bouton modifier 
     editButton.style.display = "flex";
     //Retirer barre de filtres
     const filters = document.querySelector(".filters");
     filters.style.display = "none";
 }
 
-function addListeners() {
-    //Listener Logout
-    const loginLink = document.getElementById("login-link");
-    loginLink.addEventListener("click", function(event) {
-        event.preventDefault(); // empêche le navigateur de suivre le lien
-        localStorage.removeItem("token");
-        location.reload();
-    });
-    //Listener Modale
-    const editButton = document.getElementById("editbtn");
-    const containerModal = document.getElementById("container-modal");
-    const closeModalBtn = document.querySelector(".close-btn");
-    editButton.addEventListener("click", function(event) {
-        containerModal.style.display = "flex";
-    });
-    closeModalBtn.addEventListener("click", function(event) {
-        containerModal.style.display = "none";
-    });
-}
-
 //Modale 
-const worksModalContainer = document.querySelector(".works-modal-container")
 
-function createWorksModal () {
-    
+//Gestion des modales 
+const firstModal = document.querySelector(".modal-principale") //1ère modale 
+const secondModal = document.querySelector(".modal-secondaire") //2ème modale 
+const buttonFirstModal = document.querySelector(".modal-princiale-btn") //bouton 1ère modale
+const arrow = document.querySelector(".return-back-arrow") //flèche 2ème modale 
+
+//Affichage et fermeture modal
+const editButton = document.getElementById("editbtn"); //bouton modifier (à déclarer en haut à la fin)
+const modalWrapper = document.querySelector(".modal-wrapper") //container parent
+const closeModalBtn = document.querySelector(".close-btn"); //croix de fermeture
+
+function displayModal () {
+    //Affichage modal
+    editButton.addEventListener("click", function(event) {
+        modalWrapper.style.display = "flex";
+    });
+    //Fermeture à modifier pour fermer même en cliquant ailleurs sur la page
+    closeModalBtn.addEventListener("click", function(event) {
+        modalWrapper.style.display = "none";
+    });
+    //Fermeture hors container 
+    modalWrapper.addEventListener("click", (e) => {
+    if (e.target.className == "modal-wrapper") {
+        modalWrapper.style.display = "none"
+    }
+})}
+displayModal()
+
+//Affichage des works dans la modal
+const worksGalleryModal = document.querySelector(".work-modal")
+
+async function displayWorksModal () {
+    worksGalleryModal.innerHTML = ""  //vide la galerie avant affichage
+    const worksModal = await getWork()
+    worksModal.forEach(work => {
+        //Création des éléments 
+        const figure = document.createElement('figure')
+        const img = document.createElement('img')
+        //Ajout icône poubelle 
+        const span = document.createElement('span')
+        const trash = document.createElement('i')
+        trash.classList.add('fa-solid', 'fa-trash-can')
+        trash.id = work.id //Ajout de l'id du travaux lié pour gérer la suppression 
+        img.src = work.imageUrl
+        span.appendChild(trash)
+        figure.appendChild(span)
+        figure.appendChild(img)
+        worksGalleryModal.appendChild(figure)
+    })
+    deleteWorks()
 }
+displayWorksModal()
+
+
+//Supression d'images dans la modal    /à tester après 
+function deleteWorks () {
+    const trashCans = document.querySelectorAll('.fa-trash-can')
+    trashCans.forEach (trash => {
+        trash.addEventListener('click', (e) => {
+            const id = trash.id
+            const init = {
+                method: "DELETE",
+                headers: {"content-Type":"application/json"},
+            }
+            fetch('http://localhost:5678/api/works/' +id,init)
+            .then((response)=> {
+                if (!response.ok) {
+                    console.log("La suppression n'a pas abouti")
+                }
+                return response.json()
+            })
+            .then((data) => {
+                console.log("La suppression a réussie",data)
+                displayWorksModal()
+                displayWorks()
+            })
+        })
+    })
+
+}
+
+
+

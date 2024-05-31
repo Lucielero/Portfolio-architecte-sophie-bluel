@@ -11,7 +11,6 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<script src="./assets/js/script.js" defer></script>
-	<script src="./assets/js/modale.js" defer></script>
 
 </head>
 <body>
@@ -85,40 +84,60 @@
 	</nav>
 </footer>
 
-
-<div id="container-modal">
-
-	<div class="gallery-modal">
+<!--Modale-->
+<div class="modal-wrapper">
+	<!--1ère modale-->
+	<div class="overlay modal-trigger"></div>
+	<div class="modal-principale">
 		<i class="fa-solid fa-xmark close-btn"></i>
 		<h3>Galerie photo</h3>
-		<div class="works-modal-container"></div>
+		<div class="work-modal"></div>
 		<div class="stroke"></div>
-		<button class="add-btn">Ajouter une photo</button>
+		<div class="btn-wrapper">
+			<button class="modal-principale-btn">Ajouter une photo</button>
+		</div>
 	</div>
-<!--2nd Modal
-	<div class="add-work-modal">
-		<div class="add-work-container">
-			<i class="fa-solid fa-arrow-left go-back-arrow"></i>
-			<i class="fa-solid fa-xmark close-btn"></i>
-			<h3>Ajout photo</h3>
-			<div class="add-work-block">
-				<label for="add-work-btn">+ Ajouter photo<input type="file" id="add-img-btn"></label>
+
+	<!--2ème modale-->
+	<div class="modal-secondaire">
+		<span><i class="fa-solid fa-arrow-left return-back-arrow"></i></span>
+		<span><i class="fa-solid fa-xmark close-btn"></i></span>
+		<h3>Ajout photo</h3>
+		<form class="form-photo" id="addWorkForm" action="http:localhost:5678/api/works" method="POST">
+			<div class="case">
+				<span><i class="fa-regular fa-image img-icon"></i></span>
+				<label for="file">+ Ajouter photo</label>
+				<input type="file" id="file" name="image"/>
+				<img src="#" alt="Aperçue de l'image">
 				<p>jpg, png : 4mo max</p>
 			</div>
-			<form id="add-work-form"> 
-				<label for="title">Titre</label>
-				<input type="text" id="title"/> 
-				<label for="categorie">Catégories</label>
-				<select id="categorie" name="categorie">
-					<option></option>
-				</select>
-				<div class="stroke"></div>
-				<input id="submit-work-form" type="submit" value="Valider"/>
-			</form>
-		</div>
-	</div>-->
+			<label for="title">Titre</label>
+			<input type="text" id="title" name="title">
+			
+			<select id="categorie" name="categorie"></select>
+
+		</form>
+
+
+
+			
+
+			<label for="categorie">Catégories</label>
+			<select id="categorie" name="categorie">
+				<option></option>
+			</select>
+			<div class="stroke"></div>
+			<input id="submitValider" type="submit" value="Valider"/>
+			<div class="messageForm">
+				<span id="error-messageChamp"></span>
+				<span id="addProject"></span>
+			</div>
+		</form>
+	</div>
 </div>
 
 
 </body>
 </html>
+
+
