@@ -174,19 +174,27 @@ function deleteWorks () {
             const id = trash.id
             const init = {
                 method: "DELETE",
-                headers: {"content-Type":"application/json"},
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
             }
             fetch('http://localhost:5678/api/works/' +id,init)
             .then((response)=> {
                 if (!response.ok) {
                     console.log("La suppression n'a pas abouti")
+                    return
                 }
                 return response.json()
             })
             .then((data) => {
-                console.log("La suppression a réussie",data)
-                displayWorksModal()
-                displayWorks()
+                if (data) {
+                    console.log("La suppression a réussie",data)
+                    displayWorksModal()
+                    displayWorks()
+                }
+            })
+            .catch((error) => {
+                console.error ("Une erreur s'est produite lors de la suppression :", error)
             })
         })
     })
@@ -286,6 +294,16 @@ form.addEventListener("submit", async (e) => {
 
 //Vérification des paramètres pour l'ajout d'img
 function verifyForm () {
-    const submitImgBtn = document.getElementById("submit-img-btn")
+    const submitImgBtn = document.querySelector(".submit-img-btn")
+    const inputFile = document.getElementById("file")
+    form.addEventListener("input",()=> {
+        if (title.value.trim() && category.value && inputFile.files.length > 0) {
+            submitImgBtn.classList.add("submit")
+            submitImgBtn.disabled = false 
+        } else {
+            console.log("Fichiers manquants");
+            submitImgBtn.disabled = true 
+        }
+    })
 }
 verifyForm()
